@@ -8,9 +8,9 @@ var Translate = {
       var sysLang = navigator.language || navigator.userLanguage;
       sysLang = sysLang.replace(/-.*$/, '');
       switch (sysLang) {
-        case 'ro':
-          lang = sysLang;
-          break;
+        //case 'ro':
+          //lang = sysLang;
+          //break;
         default:
           lang = 'en';
       }

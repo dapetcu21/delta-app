@@ -6,112 +6,73 @@ var templates = require('../lib/templates');
 var TemplateController = require('./template-controller');
 var MasterController = require('./master-controller');
 var MapSplitController = require('./mapsplit-controller');
-var T = require('../translate');
 
 function MainMenuController(options) {
   options = options || {};
+
   options.buttonDescriptors = {
-    about: {
-      title: T.span({
-        ro: 'Despre Deltă',
-        en: 'About the Delta',
-      }),
+    schedule: {
+      title: 'Schedule',
       viewController: function () {
         return new TemplateController({
-          template: templates.ghid.about.index,
-          title: T.span({
-            ro: 'Despre Deltă',
-            en: 'About the Delta',
-          }),
+          template: templates.app.schedule.index,
+          title: 'Schedule',
           backIcon: 'fa-home',
         });
       },
     },
-    restricted: {
-      title: T.span({
-        ro: 'Zone strict protejate',
-        en: 'Preserved areas',
-      }),
-      viewController: function () {
-        return new TemplateController({
-          template: templates.ghid.restricted.index,
-          title: T.span({
-            ro: 'Zone strict protejate',
-            en: 'Preserved areas',
-          }),
-          backIcon: 'fa-home',
-        });
-      },
-    },
-    landmarks: {
-      title: T.span({
-        ro: 'Cultură și istorie',
-        en: 'Culture and history',
-      }),
-      viewController: function () {
-        return new TemplateController({
-          template: templates.ghid.landmarks.index,
-          title: T.span({
-            ro: 'Cultură și istorie',
-            en: 'Culture and history',
-          }),
-          backIcon: 'fa-home',
-        });
-      },
-    },
-    planning: {
-      title: T.span({
-        ro: 'Planificare',
-        en: 'Planning',
-      }),
-      viewController: function () {
-        return new TemplateController({
-          template: templates.ghid.planning.index,
-          title: T.span({
-            ro: 'Planificare',
-            en: 'Planning',
-          }),
-          backIcon: 'fa-home',
-        });
-      },
-    },
-    routes: {
-      title: T.span({
-        ro: 'Trasee navale',
-        en: 'Boat routes',
-      }),
+    venues: {
+      title: 'Venues',
       viewController: function () {
         return new MapSplitController({
-          template: templates.ghid.routes.index,
-          title: T.span({
-            ro: 'Trasee navale',
-            en: 'Boat routes',
-          }),
+          template: templates.app.venues.index,
+          title: 'Venues',
           backIcon: 'fa-home',
         });
       },
     },
-    trails: {
-      title: T.span({
-        ro: 'Trasee terestre',
-        en: 'Hiking trails',
-      }),
+    open: {
+      title: 'Open',
       viewController: function () {
-        return new MapSplitController({
-          template: templates.ghid.trails.index,
-          title: T.span({
-            ro: 'Trasee terestre',
-            en: 'Hiking trails',
-          }),
+        return new TemplateController({
+          template: templates.app.open.index,
+          title: 'Open',
+          backIcon: 'fa-home',
+        });
+      },
+    },
+    people: {
+      title: 'People',
+      viewController: function () {
+        return new MasterController({
+          template: templates.app.people.index,
+          title: 'People',
+          backIcon: 'fa-home',
+        });
+      },
+    },
+    timer: {
+      title: 'Timer',
+      viewController: function () {
+        return new TemplateController({
+          template: templates.app.timer.index,
+          title: 'Timer',
+          backIcon: 'fa-home',
+        });
+      },
+    },
+    guide: {
+      title: 'Helpful Info',
+      viewController: function () {
+        return new TemplateController({
+          template: templates.app.guide.index,
+          title: 'Helpful Info',
           backIcon: 'fa-home',
         });
       },
     },
     maps: {
-      title: T.span({
-        ro: 'Harta Deltei',
-        en: 'Map of the Delta',
-      }),
+      title: 'Maps',
       viewController: function () {
         return new MapController({
           backIcon: 'fa-home',
@@ -121,25 +82,14 @@ function MainMenuController(options) {
     settings: {
       viewController: function () {
         return new TemplateController({
-          template: templates.ghid.settings.index,
+          template: templates.app.settings.index,
           settings: {
-            lang: {
-              get: function () {
-                return T.getLanguage() === 'en';
-              },
-              set: function (value) {
-                T.setLanguage(value? 'en' : 'ro');
-              },
-            },
             animations: {
               get: Famous.AnimationToggle.get,
               set: Famous.AnimationToggle.set,
             },
           },
-          title: T.span({
-            ro: 'Setări',
-            en: 'Settings',
-          }),
+          title: 'Settings',
           backIcon: 'fa-home',
         });
       },
@@ -147,16 +97,13 @@ function MainMenuController(options) {
   };
 
   options.buttonLayout = [
-    ['routes', 'trails'],
-    ['landmarks', 'planning'],
-    ['about', 'restricted'],
-    ['maps'],
+    ['schedule', 'venues'],
+    ['open', 'people'],
+    ['timer', 'guide'],
+    ['maps']
   ];
 
-  options.title = T.span({
-    ro: 'Delta Dunării',
-    en: 'The Danube Delta',
-  });
+  options.title = 'ARGO Open';
 
   MenuController.call(this, options);
 }

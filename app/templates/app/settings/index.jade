@@ -1,0 +1,34 @@
+include ../../mixins
+
++section
+  .settings
+    .settings-row
+      .settings-label 
+        span Animations
+      .settings-switch
+        input(id='settings-animations-toggle', type='checkbox', data-setting='animations').cmn-toggle.cmn-toggle-yes-no
+        label(for='settings-animations-toggle')
+          div.on
+            span On
+          div.off
+            span Off
+
+  .lang.lang-ro
+    h1 Despre
+
+    p Phone: 
+      a(href='tel:123-456-7890') 123-456-7890
+    p Email: 
+      a(href='mailto:hello@readfwd.com') hello@readfwd.com
+
+    p Această aplicație a fost dezvoltată de ReadForward
+
+  .lang.lang-en
+    h1 About
+
+    p Phone: 
+      a(href='tel:123-456-7890') 123-456-7890
+    p Email: 
+      a(href='mailto:hello@readfwd.com') hello@readfwd.com
+
+    p This app was developed by ReadForward
