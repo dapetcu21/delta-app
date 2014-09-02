@@ -7,10 +7,22 @@ var $ = require('jquery');
 function MapSurface(options) {
   var self = this;
 
-  var id = 'map-' + (Math.random().toString(36)+'00000000000000000').slice(2, 7);
-  options.content = '<div id="' + id + '" class="map" style="width: 100%; height: 100%"></div>';
+  options = options || {};
+  options.layers = options.layers || [];
+  options.views = options.views || [];
+  options.features = options.features || [];
+  options.constructors = options.constructors || [];
+  options.mapClasses = options.mapClasses || [];
+  options.mapClasses.push('map');
+  self.mapOptions = options;
 
-  Famous.Surface.call(this, options);
+  var id = 'map-' + (Math.random().toString(36)+'00000000000000000').slice(2, 7);
+  var content = '<div id="' + id + '" class="' + options.mapClasses.join(' ') + '" style="width: 100%; height: 100%"></div>';
+  self.mapId = id;
+
+  Famous.Surface.call(this, {
+    content: content
+  });
 
   var resizeScheduled = false;
   function onResize() {
@@ -129,13 +141,25 @@ MapSurface.prototype.stopLocationUpdates = function () {
 MapSurface.prototype.updateMapDotLocation = function () {
   var self = this;
   if (self.navDot && self.lastLocation) {
-    coords = ol.proj.transform(self.lastLocation, 'EPSG:4326', 'EPSG:3857');
-    self.navDot.setPosition(coords);
+    self.navDot.setPosition(self.lastLocation);
   }
   if (self.jumpControl) {
     self.jumpControl.toggleClass('hidden', 
-      !ol.extent.containsCoordinate(self.boundingExtent, self.lastLocation));
+      !self.boundingExtentsContaining(self.lastLocation).length);
   }
+};
+
+MapSurface.prototype.boundingExtentsContaining = function (coord) {
+  var r = [];
+  if (coord) {
+    for (var i = 0, v = this.views, n = v.length; i < n; i++) {
+      var extent = v[i].initialOptions.extent;
+      if (extent && ol.extent.containsCoordinate(extent, coord)) {
+        r.push(i);
+      }
+    }
+  }
+  return r;
 };
 
 MapSurface.prototype.startLocationUpdates = function () {
@@ -149,7 +173,7 @@ MapSurface.prototype.startLocationUpdates = function () {
       //Mock coords
       //coords = [28.787548, 45.172372]; //Fabrica de șnițele
       //coords = [26.030969, 44.930918]; //Service de MacBook-uri
-      self.lastLocation = coords;
+      self.lastLocation = ol.proj.transform(coords, 'EPSG:4326', 'EPSG:3857');
       self.updateMapDotLocation();
     }, function (err) {
       console.log('Could not get location: ' + err.message);
@@ -157,7 +181,7 @@ MapSurface.prototype.startLocationUpdates = function () {
       enableHighAccuracy: true,
       maximumAge: 15 * 60 * 1000,
     });
-  }
+  } 
 };
 
 MapSurface.prototype.stopHeadingUpdates = function () {
@@ -227,24 +251,9 @@ MapSurface.prototype.createJumpHomeControl = function () {
                  '</button>');
   control.append(button);
   button.on('click', function() {
-    if (!self.map ||
-        !self.lastLocation ||
-        !ol.extent.containsCoordinate(self.boundingExtent, self.lastLocation)) {
-      return;
+    if (self.lastLocation) {
+      self.navigateToPoint(self.lastLocation);
     }
-    var view = self.map.getView();
-    var pan = ol.animation.pan({
-      duration: 700,
-      source: view.getCenter()
-    });
-    var zoom = ol.animation.zoom({
-      duration: 700,
-      resolution: view.getResolution()
-    });
-    self.map.beforeRender(pan);
-    self.map.beforeRender(zoom);
-    view.setCenter(ol.proj.transform(self.lastLocation, 'EPSG:4326', 'EPSG:3857'));
-    view.setZoom(12);
   });
   self.jumpControl = control;
 
@@ -253,38 +262,249 @@ MapSurface.prototype.createJumpHomeControl = function () {
   }));
 };
 
+MapSurface.prototype.setView = function (index) {
+  var view = this.views[index];
+  this.map.setView(view);
+  this.currentViewIndex = index;
+  if (view.initialOptions.extent) {
+    view.fitExtent(view.initialOptions.extent, this.map.getSize());
+    if (view.initialOptions.zoom) {
+      view.setZoom(view.initialOptions.zoom);
+    } else {
+      view.setZoom(view.getZoom() + 1);
+    }
+  }
+};
+
+MapSurface.prototype.setViewAtCoordinates = function (coord) {
+  var self = this;
+  var viewIndices = self.boundingExtentsContaining(coord);
+  if (!viewIndices.length) {
+    return false;
+  }
+  if (!_.contains(viewIndices, self.currentViewIndex)) {
+    self.setView(viewIndices[0]);
+  }
+  return true;
+};
+
+MapSurface.prototype.navigateToPoint = function(coord, zoom, animated, isResolution) {
+  var self = this;
+
+  if (!self.map) {
+    return;
+  }
+
+  self.setViewAtCoordinates(coord);
+
+  if (animated === undefined) {
+    animated = true;
+  }
+
+  var view = self.map.getView();
+  if (animated && Famous.AnimationToggle.get()) {
+    self.map.beforeRender(ol.animation.pan({
+      duration: 700,
+      source: view.getCenter(),
+    }));
+    self.map.beforeRender(ol.animation.zoom({
+      duration: 700,
+      resolution: view.getResolution(),
+    }));
+  }
+
+  view.setCenter(coord);
+  if (isResolution) {
+    view.setResolution(zoom);
+  } else {
+    var zoomLevel = zoom || (view.initialOptions.maxZoom || 28);
+    view.setZoom(zoomLevel);
+  }
+};
+
+MapSurface.prototype.navigateToExtent = function(extent, animated) {
+  var self = this;
+
+  if (!self.map) {
+    return;
+  }
+
+  var view = self.map.getView();
+  var center = ol.extent.getCenter(extent);
+  var resolution = view.getResolutionForExtent(extent, self.map.getSize());
+  resolution = view.constrainResolution(resolution, 0, 1);
+
+  self.navigateToPoint(center, resolution, animated, true);
+};
+
+MapSurface.prototype.navigateToFeature = function(featureName, animated) {
+  var self = this;
+
+  self.lastFeatureName = featureName;
+  self.lastFeatureAnimated = animated;
+
+  if (!featureName) {
+    return;
+  }
+
+  if (!self.map) {
+    return;
+  }
+
+  var feature = _.find(self.mapOptions.features, function (a) {
+    return a.name === featureName;
+  });
+
+
+  if (!feature) {
+    return;
+  }
+
+  switch (feature.type) {
+    case 'point':
+      self.navigateToPoint(feature.coords, feature.zoomLevel, animated);
+      if (feature.overlay.popover) {
+        var $mapel = $('#' + self.mapId);
+        var pins = $mapel.find('.map-overlay-pin');
+        pins.removeClass('overlay');
+        pins.filter('.map-feature-' + feature.name).addClass('overlay');
+      }
+      break;
+    case 'extent':
+      self.navigateToExtent(feature.coords, animated);
+      break;
+  }
+
+  // Refresh styles
+  if (self.options.resetStyleOnHighlight) {
+    _.each(self.map.getLayers().getArray(), function (layer) {
+      if (layer instanceof ol.layer.Vector) {
+        layer.setStyle(layer.getStyle());
+      }
+    });
+  }
+};
+
 MapSurface.prototype.createMap = function (opts) {
+  var self = this;
+
   var map = new ol.Map({
     target: opts.target
   });
-  this.map = map;
+  self.map = map;
 
-  this.boundingExtent = opts.extent;
-  var extent = ol.proj.transformExtent(opts.extent, 'EPSG:4326', 'EPSG:3857');
+  _.each(opts.layers, function (opt) {
+    var layer;
+    var layerOptions = {
+      extent: opt.extent,
+    };
 
-  var mapLayer = new ol.layer.Tile({
-    source: new ol.source.XYZ({
-      attributions: [
-        ol.source.OSM.DATA_ATTRIBUTION
-      ],
-      url: opts.url + '/{z}/{x}/{y}.png'
-    }),
-    extent: extent
+    if (opt.type === 'tile') {
+      if (opt.url) {
+        layerOptions.source = new ol.source.XYZ({
+          attributions: [
+            ol.source.OSM.DATA_ATTRIBUTION
+          ],
+          url: opt.url + '/{z}/{x}/{y}.png'
+        });
+      }
+
+      layer = new ol.layer.Tile(layerOptions);
+    }
+
+    if (opt.type === 'geojson') {
+      if (opt.url) {
+        layerOptions.source = new ol.source.GeoJSON({
+          url: opt.url,
+          projection: 'EPSG:3857',
+        });
+      }
+
+      if (opt.styleConstructor) {
+        layerOptions.style = opt.styleConstructor(self);
+      } else {
+        layerOptions.style = opt.style;
+      }
+
+      layer = new ol.layer.Vector(layerOptions);
+    }
+
+    if (opt.trim && opt.extent) {
+      self.trimLayer(layer, opt.extent);
+    }
+
+    map.addLayer(layer);
   });
-  this.trimLayer(mapLayer, extent);
-  map.addLayer(mapLayer);
 
-  var view = new ol.View({
-    extent: extent,
-    minZoom: 8,
-    maxZoom: 13,
+  self.views = _.map(opts.views, function (opt) {
+    var viewOpts = _.extend({}, opt);
+    var view = new ol.View(viewOpts);
+    view.initialOptions = viewOpts;
+    return view;
   });
-  map.setView(view);
-  view.fitExtent(extent, map.getSize());
-  view.setZoom(view.getZoom() + 1);
 
-  this.createNavDot();
-  this.createJumpHomeControl();
+  var $mapel = $('#' + opts.target);
+  var dismissOverlays = function() {
+    $mapel.find('.map-overlay-pin').removeClass('overlay');
+  };
+  $mapel[0].addEventListener('touchstart', dismissOverlays, true);
+  $mapel[0].addEventListener('mousedown', dismissOverlays, true);
+
+  _.each(opts.features, function(f) {
+    if (f.type === 'point' && f.overlay) {
+      var overlay = f.overlay;
+      if (typeof(overlay) !== 'object') {
+        overlay = {};
+      }
+
+      overlay.color = overlay.color || '#f9645c';
+      overlay.positioning = overlay.positioning || 'bottom-center';
+
+      var content = [];
+      content.push('<div class="map-overlay-pin ');
+      content.push('map-feature-' + f.name);
+      content.push('">');
+      if (overlay.popover) {
+        content.push('<div class="map-overlay-popover">');
+        content.push(overlay.popover);
+        content.push('</div>');
+      }
+      content.push('<i class="fa fa-map-marker"></i>');
+      content.push('</div>');
+      var $el = $(content.join(''));
+      $el[0].style.color = overlay.color;
+
+      if (overlay.popover) {
+        $el.on('mousedown touchstart', function() {
+          $el.addClass('overlay');
+        });
+      }
+
+      if (overlay.click) {
+        Famous.FastClick($el, overlay.click.bind(self));
+      }
+
+      var mapOverlay = new ol.Overlay({
+        element: $el[0],
+        position: f.coords,
+        positioning: overlay.positioning,
+        stopEvent: !!(overlay.popover || overlay.click),
+      });
+
+      map.addOverlay(mapOverlay);
+    }
+  });
+
+  self.setView(0);
+  if (self.lastFeatureName) {
+    self.navigateToFeature(self.lastFeatureName, self.lastFeatureAnimated);
+  }
+  self.createNavDot();
+  self.createJumpHomeControl();
+
+  _.each(opts.constructors, function(cb) {
+    cb(self);
+  });
 };
 
 module.exports = MapSurface;

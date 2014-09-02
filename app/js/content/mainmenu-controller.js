@@ -1,11 +1,12 @@
 var util = require('util');
-var MenuController = require('./menu-controller');
-var MapController = require('./map-controller');
+var MenuController = require('../controllers/menu-controller');
+var MapController = require('../controllers/map-controller');
 var Famous = require('../shims/famous');
 var templates = require('../lib/templates');
-var TemplateController = require('./template-controller');
-var MasterController = require('./master-controller');
-var MapSplitController = require('./mapsplit-controller');
+var TemplateController = require('../controllers/template-controller');
+var MapSplitController = require('../controllers/mapsplit-controller');
+var MasterController = require('./controllers/master-controller');
+var T = require('../translate');
 
 function MainMenuController(options) {
   options = options || {};
@@ -27,6 +28,9 @@ function MainMenuController(options) {
         return new MapSplitController({
           template: templates.app.venues.index,
           title: 'Venues',
+          mapOptions: {
+            preset: 'restricted',
+          },
           backIcon: 'fa-home',
         });
       },
@@ -76,6 +80,7 @@ function MainMenuController(options) {
       viewController: function () {
         return new MapController({
           backIcon: 'fa-home',
+          preset: 'all',
         });
       },
     },

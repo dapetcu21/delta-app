@@ -2,7 +2,7 @@ var util = require('util');
 var cordova = require('../shims/cordova');
 var Famous = require('../shims/famous');
 var ViewController = require('./view-controller');
-var MainMenuController = require('./mainmenu-controller');
+var MainMenuController = require('../content/mainmenu-controller');
 
 function RootController () {
   ViewController.apply(this, arguments);
@@ -13,6 +13,24 @@ function RootController () {
   self.context.setPerspective(100);
   self.menuController = new MainMenuController();
   self.buildRenderTree(self.context);
+
+  if (cordova.present) {
+    var backHandler = function () {
+      self.menuController.emit('backbutton');
+    };
+    self.menuController.on('navigate', function () {
+      document.addEventListener('backbutton', backHandler, false);
+    });
+    self.menuController.on('navigateBack', function () {
+      document.removeEventListener('backbutton', backHandler);
+    });
+  }
+
+  if (navigator.splashscreen) {
+    Famous.Timer.after(function () {
+      navigator.splashscreen.hide();
+    }, 1);
+  }
 }
 util.inherits(RootController, ViewController);
 

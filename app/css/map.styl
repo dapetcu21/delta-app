@@ -1,3 +1,10 @@
+.map
+  background-color: #ccc
+
+.map-split
+  .ol-rotate
+    top: 3em
+
 .map-navdot
   width: 30px
   height: 30px
@@ -18,3 +25,46 @@
 
   &.hidden
     display: none
+
+.map-overlay-pin
+  position: relative
+
+  i
+    font-size: 3em
+    text-shadow: 0px 2px 2px rgba(#000, 50%)
+
+  .map-overlay-popover
+    position: absolute
+    bottom: 2.7em
+    left: 50%
+    width: 10em
+    background: rgba(#000, 70%)
+    color: #fff
+    padding: 0.5em
+    border-radius: 0.25em
+    text-align: center
+    transform: translate(-50%, 0)
+    font-family: 'Source Sans Pro', sans-serif
+    z-index: 100
+
+  .map-overlay-popover
+    display: none
+
+  &.overlay .map-overlay-popover
+    display: block
+
+.ol-control 
+  padding: 0
+  background: transparent
+
+  button
+  button:focus
+  button:hover
+    margin: 0
+    background: rgba(#fff, 0.7)
+    color: #444
+    outline: 0
+
+  button:active
+    background: rgba(#ccc, 0.7)
+

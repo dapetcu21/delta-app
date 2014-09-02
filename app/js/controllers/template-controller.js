@@ -1,4 +1,5 @@
 var TitleBarController = require('./titlebar-controller');
+var MapController = require('./map-controller');
 var util = require('util');
 var Famous = require('../shims/famous');
 var $ = require('jquery');
@@ -6,6 +7,8 @@ var templates = require('../lib/templates');
 var _ = require('lodash');
 var T = require('../translate');
 var cordova = require('../shims/cordova');
+var Util = require('../util');
+var TemplateUtils = require('./template-utils');
 
 function TemplateController(options) {
   options = options || {};
@@ -126,7 +129,7 @@ TemplateController.prototype.setUpTemplateLinks = function (page) {
 };
 
 TemplateController.prototype.setUpLinks = function (page) {
-  var links = page.find('a:not(.template-link)');
+  var links = page.find('a:not(.link)');
   links.on('click', function (evt) {
     evt.preventDefault();
   });
@@ -162,6 +165,7 @@ TemplateController.prototype.setUpLinks = function (page) {
       }
       return;
     }
+
     window.open(href, cordova.present ? '_system' : '_blank');
   });
 
@@ -195,6 +199,7 @@ TemplateController.prototype.setUpPage = function (page) {
   this.setUpLinks(page);
   this.setUpTemplateLinks(page);
   this.setUpSettings(page);
+  TemplateUtils.setUpMapLinks.call(this, page);
 };
 
 module.exports = TemplateController;
