@@ -30,6 +30,7 @@ MapPresets.registerPreset('ploiesti', {
     maxZoom: 16,
     zoom: 14,
     extent: ploiestiExtent,
+    switchButton: 'Pl', 
   } ],
 });
 
@@ -45,14 +46,18 @@ MapPresets.registerPreset('bucharest', {
     maxZoom: 14,
     zoom: 12,
     extent: bucharestExtent,
+    switchButton: 'Bu', 
   } ],
 });
 
+MapPresets.registerPreset('default', {
+  extend: ['ploiesti', 'bucharest'],
+});
 
 MapPresets.registerPreset('venues', {
-  extend: ['ploiesti', 'bucharest'],
+  extend: 'default',
   features: _.map(_.keys(venues), function(key) {
-    var venue = venues[key]
+    var venue = venues[key];
     return {
       type: 'point',
       overlay: {
@@ -65,12 +70,13 @@ MapPresets.registerPreset('venues', {
 });
 
 var templates = [
-];
-
-var templateTitles = [
+  templates.app.guide.arrivals,
+  templates.app.guide.food,
 ];
 
 var templateColors = [
+  '#3366FF',
+  '#ffa500',
 ];
 
 MapPresets.registerPreset('all', {
@@ -80,13 +86,6 @@ MapPresets.registerPreset('all', {
     var features = TemplateUtils.setUpMapLinks($el, false);
     _.each(features, function(f) {
       f.overlay.color = color;
-      f.overlay.click = function() {
-        //this is the map surface
-        this.emit('navigateToTemplate', {
-          template: t,
-          title: templateTitles[idx]
-        });
-      };
     });
     return {
       features: features,

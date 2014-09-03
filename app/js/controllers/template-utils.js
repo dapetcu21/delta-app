@@ -42,7 +42,7 @@ TemplateUtils.setUpMapLinks = function (page, onClick) {
     var $label = $el.find('.map-label');
     var language = $el.parents('.lang');
     language = language.length ? language.attr('class').toString().split(' ') : [];
-    language = language.filter(RegExp.prototype.test.bind(/^lang-/))[0].replace(/^lang-/, '');
+    language = language.length ? language.filter(RegExp.prototype.test.bind(/^lang-/))[0].replace(/^lang-/, '') : 'en';
 
     if (onClick) {
       Famous.FastClick($el, function () {

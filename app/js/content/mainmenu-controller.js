@@ -46,11 +46,11 @@ function MainMenuController(options) {
       },
     },
     people: {
-      title: 'Org Comm',
+      title: 'Team',
       viewController: function () {
         return new MasterController({
           template: templates.app.people.index,
-          title: 'Org Comm',
+          title: 'Team',
           backIcon: 'fa-home',
         });
       },

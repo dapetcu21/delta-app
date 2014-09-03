@@ -1,0 +1,38 @@
+include ../../mixins
+
++article
+  +section
+    h3 Fast Food
+
+    p Besides the usual 
+      +maplink(44.940437, 26.024966, 'mcdonalds')
+        +maplabel McDonald's
+        | &nbsp;
+        +mapicon
+      |  and 
+      +maplink(44.940930, 26.022263, 'kfc')
+        +maplabel KFC
+        | &nbsp;
+        +mapicon
+      | , we also recommend 
+      +maplink(44.938692, 26.025537, 'berbec')
+        +maplabel The best kebab in town
+        | &nbsp;
+        +mapicon
+      |  which serves mutton shawarma.
+
+    h3 Pizza
+    p You can find the best pizza at 
+      +maplink(44.944959, 26.014659, 'jerry')
+        +maplabel Jerry's Pizza
+        | &nbsp;
+        +mapicon
+      |  and Pizza Start (delivery only).
+
+    h4 Jerry's Pizza
+    p: a(href='http://www.jerryspizza.ro/') jerryspizza.ro
+    p: a(href='tel:+40373303030') (+40)37-330-3030
+
+    h4 Pizza Start
+    p: a(href='http://www.pizzastart.ro/') pizzastart.ro
+    p: a(href='tel:+40727046232') (+40)72-704-6232

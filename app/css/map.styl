@@ -53,6 +53,14 @@
   &.overlay .map-overlay-popover
     display: block
 
+.ol-full-screen button
+  &:after
+    content: ''
+  &.ol-full-screen-false .full-screen-true
+    display: none
+  &.ol-full-screen-true .full-screen-false
+    display: none
+
 .ol-control 
   padding: 0
   background: transparent
