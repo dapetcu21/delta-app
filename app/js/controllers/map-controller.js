@@ -55,10 +55,12 @@ MapController.prototype.goToNextView = function () {
 };
 
 MapController.prototype.updateRightButton = function () {
-  var index = this.map.currentViewIndex;
-  var views = this.map.views;
-  var name = views[index].initialOptions.switchButton || (views.length > 1 ? index : '');
-  this.rightButton.setContent(name);
+  if (this.rightButton) {
+    var index = this.map.currentViewIndex;
+    var views = this.map.views;
+    var name = views[index].initialOptions.switchButton || (views.length > 1 ? index : '');
+    this.rightButton.setContent(name);
+  }
 };
 
 MapController.prototype.makeRightButton = function () {

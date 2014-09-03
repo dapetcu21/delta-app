@@ -6,6 +6,7 @@ var templates = require('../lib/templates');
 var TemplateController = require('../controllers/template-controller');
 var MapSplitController = require('../controllers/mapsplit-controller');
 var MasterController = require('../controllers/master-controller');
+var TimerController = require('../controllers/timer-controller');
 var T = require('../translate');
 
 function MainMenuController(options) {
@@ -58,8 +59,7 @@ function MainMenuController(options) {
     timer: {
       title: 'Timer',
       viewController: function () {
-        return new TemplateController({
-          template: templates.app.timer.index,
+        return new TimerController({
           title: 'Timer',
           backIcon: 'fa-home',
         });
