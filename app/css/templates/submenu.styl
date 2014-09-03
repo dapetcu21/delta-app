@@ -1,3 +1,5 @@
+border-color=#333
+
 ul.submenu
   list-style-type: none
   padding: 0
@@ -15,11 +17,11 @@ ul.submenu
       width: 1em
       height: 3.5em
       content: ''
-      border-bottom: #ddd 1px solid
+      border-bottom: border-color 1px solid
 
-    a
+    .link
       padding: 0.5em 0.5em 0.5em 0
-      border-bottom: #ddd 1px solid
+      border-bottom: border-color 1px solid
       display: table-cell
       vertical-align: middle
 
@@ -32,15 +34,38 @@ ul.submenu
       &:visited
       &:hover
         text-decoration: none
-        color: #444
+        color: text-color
 
       .submenu-caption
-        color: #666
+        color: darken(text-color, 20%)
         font-size: 80%
 
       .submenu-title
         font-size: 120%
 
+        .debaters
+          display: block
+
+          &:before
+            content: 'Debaters:'
+            color: #ff1111
+            margin-right: 0.5em
+            width: 4.3em
+            font-size: 60%
+            display: inline-block
+
+        .judges
+          display: block
+
+          &:before
+            content: 'Judges:'
+            color: #0093ff
+            margin-right: 0.5em
+            font-size: 60%
+            width: 4.3em
+            display: inline-block
+
+
 
     &:active
-      background-color: rgba(1, 1, 1, 10%)
+      background-color: rgba(255, 255, 255, 8%)

@@ -1,0 +1,38 @@
+{  
+  "teatrul": {
+    "coords": [26.027298, 44.940183],
+    "title": "Toma Caragiu Theatre"
+  },
+  "spiru": {
+    "coords": [26.022949, 44.926651],
+    "title": "Spiru Haret College"
+  },
+  "bcu": {
+    "coords": [26.097701, 44.439782],
+    "title": "Carol I Central University Library"
+  },
+  "nord": {
+    "coords": [25.993703, 44.945868],
+    "title": "Hotel Nord"
+  },
+  "pitstop": {
+    "coords": [26.033240, 44.920094],
+    "title": "Pit Stop Hostel"
+  },
+  "central": {
+    "coords": [26.023054, 44.940533],
+    "title": "Hotel Central"
+  },
+  "dublin": {
+    "coords": [26.021241, 44.940881],
+    "title": "Dublin Pub"
+  },
+  "ok": {
+    "coords": [26.026647, 44.935824],
+    "title": "OK Pub"
+  },
+  "irish": {
+    "coords": [26.014661, 44.940996],
+    "title": "Shamrock Pub"
+  }
+}

@@ -1,0 +1,20 @@
+mixin schedule-item(subtitle, title)
+  - var titleText = ''
+  - if (typeof(title) === 'object') {
+  -   if (title.deb) {
+  -     titleText += '<span class="debaters">' + title.deb + '</span>';
+  -   }
+  -   if (title.jud) {
+  -     titleText += '<span class="judges">' + title.jud + '</span>';
+  -   }
+  - } else {
+  -    titleText = title;
+  - }
+  li
+    .link
+      .submenu-container
+        .submenu-title
+          != titleText
+        .submenu-caption
+          != subtitle
+

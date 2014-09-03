@@ -5,7 +5,7 @@ var Famous = require('../shims/famous');
 var templates = require('../lib/templates');
 var TemplateController = require('../controllers/template-controller');
 var MapSplitController = require('../controllers/mapsplit-controller');
-var MasterController = require('./controllers/master-controller');
+var MasterController = require('../controllers/master-controller');
 var T = require('../translate');
 
 function MainMenuController(options) {
@@ -15,7 +15,7 @@ function MainMenuController(options) {
     schedule: {
       title: 'Schedule',
       viewController: function () {
-        return new TemplateController({
+        return new MasterController({
           template: templates.app.schedule.index,
           title: 'Schedule',
           backIcon: 'fa-home',
@@ -29,14 +29,14 @@ function MainMenuController(options) {
           template: templates.app.venues.index,
           title: 'Venues',
           mapOptions: {
-            preset: 'restricted',
+            preset: 'venues',
           },
           backIcon: 'fa-home',
         });
       },
     },
     open: {
-      title: 'Open',
+      title: '',
       viewController: function () {
         return new TemplateController({
           template: templates.app.open.index,
@@ -46,11 +46,11 @@ function MainMenuController(options) {
       },
     },
     people: {
-      title: 'People',
+      title: 'Org Comm',
       viewController: function () {
         return new MasterController({
           template: templates.app.people.index,
-          title: 'People',
+          title: 'Org Comm',
           backIcon: 'fa-home',
         });
       },
@@ -66,7 +66,7 @@ function MainMenuController(options) {
       },
     },
     guide: {
-      title: 'Helpful Info',
+      title: 'Travel guide',
       viewController: function () {
         return new TemplateController({
           template: templates.app.guide.index,
