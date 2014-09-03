@@ -192,7 +192,7 @@ TimerController.prototype.goToNextDuration = function () {
 
 TimerController.prototype.updateRightButton = function () {
   if (this.rightButton) {
-    this.rightButton.setContent(TimerController.parseTime(this.options.duration, 2));
+    this.rightButton.setContent(TimerController.parseTime(this.options.duration, 1));
   }
 };
 
