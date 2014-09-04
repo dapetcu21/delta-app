@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.readfwd.deltaapp" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Danube Delta</name>
+<widget id="com.readfwd.argoopen" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>ARGO Open</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        Guide application for the ARGO Open World Schools Debating Tournament
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="marius@argodebate.ro">
+        Marius Petcu
     </author>
     <content src="index.html" />
     <access origin="*" />
@@ -70,8 +70,10 @@
     </platform>
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="StatusBarStyle" value="lightcontent" />
-    <preference name="SplashScreen" value="screen" />
-    <preference name="SplashScreenDelay" value="10000" />
-    <preference name="AutoHideSplashScreen" value="false" />
-    <preference name="ShowSplashScreenSpinner" value="false" />
+    <platform name="ios">
+        <preference name="SplashScreen" value="screen" />
+        <preference name="SplashScreenDelay" value="10000" />
+        <preference name="AutoHideSplashScreen" value="false" />
+        <preference name="ShowSplashScreenSpinner" value="false" />
+    </platform>
 </widget>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.readfwd.deltaapp" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.readfwd.argoopen" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <preference name="AllowInlineMediaPlayback" value="false" />
     <preference name="AutoHideSplashScreen" value="true" />
     <preference name="BackupWebStorage" value="cloud" />
@@ -59,19 +59,19 @@
     <icon height="58" src="res/icons/ios/AppIcon29x29@2x.png" width="58" />
     <icon height="50" src="res/icons/ios/AppIcon50x50.png" width="50" />
     <icon height="100" src="res/icons/ios/AppIcon50x50@2x.png" width="100" />
-    <name>Danube Delta</name>
+    <preference name="SplashScreen" value="screen" />
+    <preference name="SplashScreenDelay" value="10000" />
+    <preference name="AutoHideSplashScreen" value="false" />
+    <preference name="ShowSplashScreenSpinner" value="false" />
+    <name>ARGO Open</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        Guide application for the ARGO Open World Schools Debating Tournament
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="marius@argodebate.ro">
+        Marius Petcu
     </author>
     <content src="index.html" />
     <access origin="*" />
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="StatusBarStyle" value="lightcontent" />
-    <preference name="SplashScreen" value="screen" />
-    <preference name="SplashScreenDelay" value="10000" />
-    <preference name="AutoHideSplashScreen" value="false" />
-    <preference name="ShowSplashScreenSpinner" value="false" />
 </widget>
