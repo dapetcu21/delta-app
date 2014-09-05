@@ -6,6 +6,7 @@
 	objectVersion = 46;
 	objects = {
 /* Begin PBXBuildFile section */
+		1915BD008A154309AAF40384 /* Insomnia.m in Sources */ = {isa = PBXBuildFile; fileRef = D71B5A93C2DC476CA06A5A5A /* Insomnia.m */; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1F766FE113BBADB100FB74C0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F766FDC13BBADB100FB74C0 /* Localizable.strings */; };
@@ -49,7 +50,6 @@
 		C8DEB74A6E6D49CFAF9ED460 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1629085A0CD47B8A9199C29 /* AudioToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
 		F58C19ABFF9948A0977D66C0 /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 308724351A1248B08270C7DB /* CDVInAppBrowser.m */; };
-		1915BD008A154309AAF40384 /* Insomnia.m in Sources */ = {isa = PBXBuildFile; fileRef = D71B5A93C2DC476CA06A5A5A /* Insomnia.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +99,7 @@
 		30A0434414DC770100060A13 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = Localizable.strings; sourceTree = "<group>"; };
 		30A0434714DC770100060A13 /* se */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = se; path = Localizable.strings; sourceTree = "<group>"; };
 		30FC414816E50CA1004E6F35 /* icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-72@2x.png"; sourceTree = "<group>"; };
+		322C809BA5E44D8C8FAACEFC /* Insomnia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Insomnia.h; path = "nl.x-services.plugins.insomnia/Insomnia.h"; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* ARGO Open-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ARGO Open-Prefix.pch"; sourceTree = "<group>"; };
 		45211B34EDD5482193BF8327 /* APPEmailComposer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = APPEmailComposer.m; path = "de.appplant.cordova.plugin.email-composer/APPEmailComposer.m"; sourceTree = "<group>"; };
 		4905EE34FA814F21B0561BF3 /* CDVDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVDevice.m; path = org.apache.cordova.device/CDVDevice.m; sourceTree = "<group>"; };
@@ -124,6 +125,7 @@
 		940CA014683E4F9CB2629E5E /* CDVNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVNotification.m; path = org.apache.cordova.dialogs/CDVNotification.m; sourceTree = "<group>"; };
 		CD1DEC9BEE764C26B8BCF487 /* CDVCompass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVCompass.m; path = "org.apache.cordova.device-orientation/CDVCompass.m"; sourceTree = "<group>"; };
 		D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
+		D71B5A93C2DC476CA06A5A5A /* Insomnia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Insomnia.m; path = "nl.x-services.plugins.insomnia/Insomnia.m"; sourceTree = "<group>"; };
 		D99404B6B0164748AE7291E5 /* CDVInAppBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVInAppBrowser.h; path = org.apache.cordova.inappbrowser/CDVInAppBrowser.h; sourceTree = "<group>"; };
 		E1C7976E3CB34DE490D5ECED /* CDVStatusBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVStatusBar.h; path = org.apache.cordova.statusbar/CDVStatusBar.h; sourceTree = "<group>"; };
 		EA1BFA5C16E94912A854EEEA /* CDVLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVLocation.m; path = org.apache.cordova.geolocation/CDVLocation.m; sourceTree = "<group>"; };
@@ -133,8 +135,6 @@
 		F1629085A0CD47B8A9199C29 /* AudioToolbox.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = "ARGO Open/config.xml"; sourceTree = "<group>"; };
 		FDA5C0B44E4D41879853EF8F /* CDVStatusBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVStatusBar.m; path = org.apache.cordova.statusbar/CDVStatusBar.m; sourceTree = "<group>"; };
-		D71B5A93C2DC476CA06A5A5A /* Insomnia.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "Insomnia.m"; path = "nl.x-services.plugins.insomnia/Insomnia.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		322C809BA5E44D8C8FAACEFC /* Insomnia.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Insomnia.h"; path = "nl.x-services.plugins.insomnia/Insomnia.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
