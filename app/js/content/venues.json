@@ -23,9 +23,9 @@
     "coords": [26.023054, 44.940533],
     "title": "Hotel Central"
   },
-  "dublin": {
-    "coords": [26.021241, 44.940881],
-    "title": "Dublin Pub"
+  "okbulevard": {
+    "coords": [26.026700, 44.936806],
+    "title": "OK Bulevard"
   },
   "davinci": {
     "coords": [26.024484, 44.929424],
@@ -38,5 +38,9 @@
   "irish": {
     "coords": [26.014661, 44.940996],
     "title": "Shamrock Pub"
+  },
+  "dorms": {
+    "coords": [26.032789, 44.916129],
+    "title": "Dorms"
   }
 }

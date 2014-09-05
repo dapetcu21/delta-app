@@ -89,7 +89,7 @@ MapPresets.registerPreset('all', {
     });
     return {
       features: _.filter(features, function (feature) {
-        return feature.name !== 'davinci';
+        return feature.name !== 'davinci' && feature.name !== 'okbulevard';
       }),
     };
   })),
