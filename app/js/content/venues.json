@@ -27,9 +27,13 @@
     "coords": [26.021241, 44.940881],
     "title": "Dublin Pub"
   },
+  "davinci": {
+    "coords": [26.024484, 44.929424],
+    "title": "Da Vinci Restaurant"
+  },
   "ok": {
     "coords": [26.026647, 44.935824],
-    "title": "OK Pub"
+    "title": "Bistro 29"
   },
   "irish": {
     "coords": [26.014661, 44.940996],

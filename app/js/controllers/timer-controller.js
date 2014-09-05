@@ -205,9 +205,9 @@ TimerController.prototype.makeRightButton = function () {
   this.rightButton = icon;
   this.updateRightButton();
 
-  Famous.FastClick(icon, this.goToNextDuration.bind(this));
-
-  return TitleBarController.createTitleBarButton(1, icon);
+  var container = TitleBarController.createTitleBarButton(1, icon);
+  Famous.FastClick(container, this.goToNextDuration.bind(this));
+  return container;
 };
 
 function renderProgress(progress) {

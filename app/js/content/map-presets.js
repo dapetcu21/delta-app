@@ -88,7 +88,9 @@ MapPresets.registerPreset('all', {
       f.overlay.color = color;
     });
     return {
-      features: features,
+      features: _.filter(features, function (feature) {
+        return feature.name !== 'davinci';
+      }),
     };
   })),
 });
