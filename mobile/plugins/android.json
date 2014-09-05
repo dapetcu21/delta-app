@@ -35,6 +35,10 @@
                         {
                             "xml": "<feature name=\"SplashScreen\"><param name=\"android-package\" value=\"org.apache.cordova.splashscreen.SplashScreen\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Insomnia\"><param name=\"android-package\" value=\"nl.xservices.plugins.Insomnia\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -85,6 +89,9 @@
         },
         "org.apache.cordova.splashscreen": {
             "PACKAGE_NAME": "com.readfwd.deltaapp"
+        },
+        "nl.x-services.plugins.insomnia": {
+            "PACKAGE_NAME": "com.readfwd.argoopen"
         }
     },
     "dependent_plugins": {}

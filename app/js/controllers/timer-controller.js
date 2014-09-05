@@ -174,9 +174,15 @@ TimerController.prototype.setTimerState = function () {
   if (state !== self.timerState) {
     self.timerState = state;
     if (state) {
+      if (window.plugins && window.plugins.insomnia) {
+        window.plugins.insomnia.keepAwake();
+      }
       self.tickCallback = Famous.Timer.setInterval(tick, 50);
     } else {
       Famous.Timer.clear(self.tickCallback);
+      if (window.plugins && window.plugins.insomnia) {
+        window.plugins.insomnia.allowSleepAgain();
+      }
     }
   }
 };
